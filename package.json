@@ -1,0 +1,15 @@
+{
+  "name": "app",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+  "install:all": "npm install --prefix frontend && cd backend && pip install -r requirements.txt",
+  "frontend": "npm run dev --prefix frontend",
+  "backend": "cd backend && source venv/bin/activate && uvicorn main:app --reload",
+  "dev": "concurrently \"npm run backend\" \"npm run frontend\""
+  },
+  "dependencies": {
+    "concurrently": "^9.2.1"
+  }
+}
