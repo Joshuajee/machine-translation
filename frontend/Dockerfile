@@ -22,10 +22,11 @@ RUN yarn build
 
 # Stage 2: Serve the application with Nginx
 FROM nginx:alpine
-
-# Copy the build output (Make sure the folder is 'dist' - Vite default)
+# Copy the build files
 COPY --from=build /app/dist /usr/share/nginx/html
 
-EXPOSE 80
+# --- NEW: Copy custom Nginx config ---
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 
+EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
