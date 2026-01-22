@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  # The PostgreSQL Database
+  db:
+    image: postgres:15
+    container_name: postgres_db
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: mydatabase
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: always
+  # The FastAPI Backend
+  backend:
+    build: ./backend
+    container_name: fastapi-backend
+    ports:
+      - "8000:8000"
+    restart: always
+
+  # The React Frontend (Served by Nginx)
+  frontend:
+    build: ./frontend
+    container_name: react-frontend
+    ports:
+      - "80:80"  # Map container port 80 to host port 80
+    depends_on:
+      - backend
+    restart: always
+volumes:
+  postgres_data:
+
+  
