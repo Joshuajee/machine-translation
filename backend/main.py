@@ -3,9 +3,19 @@ from fastapi.middleware.cors import CORSMiddleware
 from datamodel import TranslateRequest
 from transformers import pipeline
 
+offload_dir = "offload_folder"
 
 checkpoint_path = "./models/en-urh-byt5-base-ep30-11"
-english_to_urhobo = pipeline("translation", model=checkpoint_path)
+english_to_urhobo = pipe = pipeline(
+    task="translation",
+    model=checkpoint_path,
+    device_map="auto",           
+    model_kwargs={
+        "low_cpu_mem_usage": True,
+        "offload_folder": offload_dir,
+        "offload_state_dict": True
+    }
+)
 
 app = FastAPI()
 
@@ -22,6 +32,17 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+@app.post("/translate")
+def translate_english_to_urhobo(translateRequest: TranslateRequest):
+    translate_prefix = "translate English to Urhobo: "
+    text = f"{translate_prefix} {translateRequest.text}"
+    results = english_to_urhobo(text, max_length=400)
+    return {
+        "status": "success",
+        "translation":  results[0]["translation_text"]
+    }
+
 
 @app.post("/api/translate")
 def translate_english_to_urhobo(translateRequest: TranslateRequest):

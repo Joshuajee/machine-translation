@@ -1,5 +1,4 @@
 version: '3.8'
-
 services:
   # The PostgreSQL Database
   db:
@@ -14,12 +13,17 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     restart: always
+
   # The FastAPI Backend
   backend:
     build: ./backend
     container_name: translator-backend
     ports:
       - "8000:8000"
+    volumes:
+      # FIX: Mount the models from VPS disk to Container
+      # Format: "./local_path : /container_path"
+      - ./backend/models:/app/translator-backend/models
     restart: always
 
   # The React Frontend (Served by Nginx)
@@ -27,11 +31,11 @@ services:
     build: ./frontend
     container_name: translator-frontend
     ports:
-      - "80:80"  # Map container port 80 to host port 80
+      - "80:80"
     depends_on:
       - backend
     restart: always
+
 volumes:
   postgres_data:
-
   
