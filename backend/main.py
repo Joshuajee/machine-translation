@@ -5,7 +5,7 @@ from transformers import pipeline
 
 
 checkpoint_path = "./models/en-urh-byt5-base-ep30-11"
-english_to_urhobo = pipeline("translation", model=checkpoint_path, device=0)
+english_to_urhobo = pipeline("translation", model=checkpoint_path)
 
 app = FastAPI()
 
