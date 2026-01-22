@@ -1,2 +1,2 @@
-chmod +x start-docker.sh
-./start-docker.sh
+chmod +x deploy-docker.sh
+./deploy-docker.sh

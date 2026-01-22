@@ -12,3 +12,9 @@ build/
 .env
 .env.local
 .env.*.local    
+backend/migrations/
+frontend/build/
+.idea/
+.vscode/
+*.log
+backend/models/*
