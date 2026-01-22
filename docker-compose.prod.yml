@@ -17,15 +17,15 @@ services:
   # The FastAPI Backend
   backend:
     build: ./backend
-    container_name: fastapi-backend
+    container_name: translator-backend
     ports:
-      - "8000"
+      - "8000:8000"
     restart: always
 
   # The React Frontend (Served by Nginx)
   frontend:
     build: ./frontend
-    container_name: react-frontend
+    container_name: translator-frontend
     ports:
       - "80:80"  # Map container port 80 to host port 80
     depends_on:
