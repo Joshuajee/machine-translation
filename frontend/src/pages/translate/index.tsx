@@ -11,11 +11,6 @@ const TranslatePage: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
 
-  const languages = [
-    { code: 'en', name: 'English' },
-    { code: 'urh', name: 'Urhobo' },
-    // Add more languages as needed
-  ];
 
   const handleTranslate = async () => {
     if (!sourceText.trim()) return;
@@ -50,13 +45,6 @@ const TranslatePage: React.FC = () => {
     }
   };
 
-  const swapLanguages = () => {
-    setSourceLang(targetLang);
-    setTargetLang(sourceLang);
-    setSourceText(translatedText);
-    setTranslatedText(sourceText);
-  };
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto">
@@ -74,6 +62,10 @@ const TranslatePage: React.FC = () => {
             <LanguageSelector 
                 sourceText={sourceText} 
                 translatedText={translatedText} 
+                sourceLang={sourceLang} 
+                targetLang={targetLang} 
+                setSourceLang={setSourceLang} 
+                setTargetLang={setTargetLang}
                 setSourceText={setSourceText} 
                 setTranslatedText={setTranslatedText} />
 

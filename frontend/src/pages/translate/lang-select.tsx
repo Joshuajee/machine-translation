@@ -1,17 +1,15 @@
-import { useState } from "react";
-
 interface LanguageSelectorProps {
     sourceText: string;
     translatedText: string;
+    sourceLang: string;
+    targetLang: string;
     setSourceText: (text: string) => void;
     setTranslatedText: (text: string) => void;
+    setSourceLang: (lang: string) => void;
+    setTargetLang: (lang: string) => void;
 }
 
-const LanguageSelector = ({ sourceText, translatedText, setSourceText, setTranslatedText }: LanguageSelectorProps) => {
-
-    const [sourceLang, setSourceLang] = useState('en');
-    const [targetLang, setTargetLang] = useState('urh');
-
+const LanguageSelector = ({ sourceText, translatedText, sourceLang, targetLang, setSourceText, setTranslatedText, setSourceLang, setTargetLang }: LanguageSelectorProps) => {
     
     const languages = [
     { code: 'en', name: 'English' },
