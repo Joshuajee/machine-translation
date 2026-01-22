@@ -23,7 +23,7 @@ services:
     volumes:
       # FIX: Mount the models from VPS disk to Container
       # Format: "./local_path : /container_path"
-      - ./backend/models:/app/translator-backend/models
+      - ./backend/models:/app/models
     restart: always
 
   # The React Frontend (Served by Nginx)
