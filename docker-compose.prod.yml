@@ -35,7 +35,42 @@ services:
     depends_on:
       - backend
     restart: always
+    expose:
+      - 80
+    environment:
+    # These variables tell the proxy to generate SSL for this domain
+      - VIRTUAL_HOST=translate.joshuajee.xyz
+      - LETSENCRYPT_HOST=translate.joshuajee.xyz
+      - LETSENCRYPT_EMAIL=your-email@example.com
+
+  # The Reverse Proxy (Traffic Cop)
+  nginx-proxy:
+    image: nginxproxy/nginx-proxy
+    container_name: nginx-proxy
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - certs:/etc/nginx/certs
+      - vhost:/etc/nginx/vhost.d
+      - html:/usr/share/nginx/html
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+  
+  # The SSL Handler (Automatic Certbot)
+  acme-companion:
+    image: nginxproxy/acme-companion
+    container_name: nginx-proxy-acme
+    volumes_from:
+      - nginx-proxy
+    volumes:
+      - certs:/etc/nginx/certs
+      - acme:/etc/acme.sh
+      - /var/run/docker.sock:/var/run/docker.sock:ro
 
 volumes:
   postgres_data:
+  certs:
+  vhost:
+  html:
+  acme:
   
