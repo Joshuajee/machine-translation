@@ -39,7 +39,7 @@ services:
     # These variables tell the proxy to generate SSL for this domain
       - VIRTUAL_HOST=translate.joshuajee.xyz
       - LETSENCRYPT_HOST=translate.joshuajee.xyz
-      - LETSENCRYPT_EMAIL=your-email@example.com
+      - LETSENCRYPT_EMAIL=${HOST_EMAIL}
 
   # The Reverse Proxy (Traffic Cop)
   nginx-proxy:

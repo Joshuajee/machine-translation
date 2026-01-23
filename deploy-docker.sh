@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# Load environment variables
+set -a
+source "$(dirname "$0")/.env"
+set +a
+
 echo "🚀 Starting Docker Production Build..."
 
 # 1. Stop existing containers
