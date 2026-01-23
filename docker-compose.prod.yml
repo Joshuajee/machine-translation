@@ -30,8 +30,6 @@ services:
   frontend:
     build: ./frontend
     container_name: translator-frontend
-    ports:
-      - "80:80"
     depends_on:
       - backend
     restart: always
